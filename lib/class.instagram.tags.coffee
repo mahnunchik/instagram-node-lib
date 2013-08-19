@@ -9,8 +9,10 @@ class InstagramTags
     @parent._request params
 
   recent: (params) ->
-    params = @parent._credentials params
-    params['path'] = "/#{@parent._api_version}/tags/#{params['name']}/media/recent?#{@parent._to_querystring(params)}"
+    to_querystring = @parent._credentials {}
+    to_querystring['min_id'] = params['min_id'] if params['min_id']?
+    to_querystring['max_id'] = params['max_id'] if params['max_id']?
+    params['path'] = "/#{@parent._api_version}/tags/#{params['name']}/media/recent?#{@parent._to_querystring(to_querystring)}"
     @parent._request params
 
   search: (params) ->
